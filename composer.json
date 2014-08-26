@@ -1,0 +1,24 @@
+{
+    "name": "datatheke/client",
+    "description": "PHP client for the Data Management System Datatheke ([http://www.datatheke.com/](http://www.datatheke.com/))",
+    "type": "library",
+    "keywords": ["datatheke"],
+    "homepage": "https://github.com/datatheke/datatheke-php-client",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luc Vieillescazes",
+            "email": "luc@datatheke.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "guzzlehttp/guzzle": "~4.0",
+        "symfony/event-dispatcher": "~2.5"
+    },
+    "autoload": {
+        "psr-0": {
+            "Datatheke\\": "src/"
+        }
+    }
+}
