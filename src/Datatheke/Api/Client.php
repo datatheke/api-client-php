@@ -56,16 +56,22 @@ class Client
         $this->accessToken = $accessToken;
         $this->refreshToken = $refreshToken;
         $this->expiresAt = $expiresAt;
+
+        return $this;
     }
 
     public function setUrl($url)
     {
         $this->url = $url.'api/v2/';
+
+        return $this;
     }
 
     public function setConfig(array $config)
     {
         $this->config = $config;
+
+        return $this;
     }
 
     public function setCredentials($username, $password)
@@ -133,6 +139,8 @@ class Client
     public function addListener($eventName, $listener)
     {
         $this->dispatcher->addListener($eventName, $listener);
+
+        return $this;
     }
 
     public function getLibraries($page = 1)
