@@ -185,66 +185,85 @@ class Client
         return $response->json();
     }
 
-    public function createLibrary($library)
+    public function createLibrary($name, $description = '')
     {
-        $response = $this->getClient()->post('libraries', null, json_encode(array('library' => $library)));
+        $library = [
+            'name' => $name,
+            'description' => $description
+        ];
 
-        return $response->json();
+        $response = $this->getClient()->post('libraries', ['body' => $library]);
+
+        return $response->json()['id'];
     }
 
-    public function createCollection($libraryId, $collection)
+    public function createCollection($libraryId, $name, $description, array $fields)
     {
-        $response = $this->getClient()->post(array('libraries/{id}', array('id' => $libraryId)), null, json_encode(array('collection' => $collection)));
+        $collection = [
+            'name' => $name,
+            'description' => $description,
+            'fields' => $fields
+        ];
 
-        return $response->json();
+        $response = $this->getClient()->post(array('libraries/{id}', array('id' => $libraryId)), ['body' => $collection]);
+
+        return $response->json()['id'];
     }
 
     public function createItem($collectionId, $item)
     {
-        $response = $this->getClient()->post(array('collections/{id}', array('id' => $collectionId)), null, json_encode(array('_'.$collectionId => $item)));
+        $response = $this->getClient()->post(array('collections/{id}', array('id' => $collectionId)), ['body' => $item]);
 
-        return $response->json();
+        return $response->json()['id'];
     }
 
-    public function updateLibrary($libraryId, $library)
+    public function updateLibrary($libraryId, $name = null, $description = null)
     {
-        $response = $this->getClient()->put(array('libraries/{id}', array('id' => $libraryId)), null, json_encode(array('library' => $library)));
+        $library = [];
+        if (null !== $name) {
+            $library['name'] = $name;
+        }
 
-        return $response->json();
+        if (null !== $description) {
+            $library['description'] = $description;
+        }
+
+        $this->getClient()->put(array('libraries/{id}', array('id' => $libraryId)), ['body' => $library]);
     }
 
-    public function updateCollection($collectionId, $collection)
+    public function updateCollection($collectionId, $name, $description, array $fields)
     {
-        $response = $this->getClient()->put(array('collections/{id}', array('id' => $collectionId)), null, json_encode(array('collection' => $collection)));
+        $collection = [
+            'fields' => $fields
+        ];
+        if (null !== $name) {
+            $collection['name'] = $name;
+        }
 
-        return $response->json();
+        if (null !== $description) {
+            $collection['description'] = $description;
+        }
+
+        $this->getClient()->put(array('collections/{id}', array('id' => $collectionId)), ['body' => $collection]);
     }
 
     public function updateItem($collectionId, $itemId, $item)
     {
-        $response = $this->getClient()->put(array('collections/{collectionId}/items/{id}', array('collectionId' => $collectionId, 'id' => $itemId)), null, json_encode(array('_'.$collectionId => $item)));
-
-        return $response->json();
+        $this->getClient()->put(array('collections/{collectionId}/items/{id}', array('collectionId' => $collectionId, 'id' => $itemId)), ['body' => $item]);
     }
 
     public function deleteLibrary($id)
     {
-        $response = $this->getClient()->delete(array('libraries/{id}', array('id' => $id)));
-
-        return $response->json();
+        $this->getClient()->delete(array('libraries/{id}', array('id' => $id)));
     }
 
     public function deleteCollection($id)
     {
-        $response = $this->getClient()->delete(array('collections/{id}', array('id' => $id)));
-
-        return $response->json();
+        $this->getClient()->delete(array('collections/{id}', array('id' => $id)));
     }
 
     public function deleteItem($collectionId, $id)
     {
-        $response = $this->getClient()->delete(array('collections/{collectionId}/items/{id}', array('collectionId' => $collectionId, 'id' => $id)));
-
-        return $response->json();
+        $this->getClient()->delete(array('collections/{collectionId}/items/{id}', array('collectionId' => $collectionId, 'id' => $id)));
     }
 }

@@ -9,7 +9,7 @@ Install
 -------
 Using [composer](https://getcomposer.org/)
 ```sh
-composer require 'datatheke/client' '~0.1' 
+composer require 'datatheke/client' '~0.2.0'
 ```
 
 Usage
