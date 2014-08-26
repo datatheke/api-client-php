@@ -22,6 +22,7 @@ $loader = require __DIR__.'/../vendor/autoload.php';
 
 $client = new Datatheke\Api\Client();
 $client->setCredentials(MY_USERNAME, MY_PASSWORD);
+// or $client->setTokenData('ACCESS_TOKEN', 'REFRESH_TOKEN', 'EXPIRES_TIMESTAMP');
 
 $libraries = $client->getLibraries();
 foreach ($libraries['items'] as $library) {
