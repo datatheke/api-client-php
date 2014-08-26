@@ -24,7 +24,7 @@ $client = new Datatheke\Api\Client();
 $client->setCredentials(MY_USERNAME, MY_PASSWORD);
 
 $libraries = $client->getLibraries();
-foreach ($libraries as $library) {
+foreach ($libraries['items'] as $library) {
     echo $library['name']."\n";
 }
 ```
