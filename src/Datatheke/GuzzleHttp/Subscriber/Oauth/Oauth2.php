@@ -68,7 +68,7 @@ class Oauth2 implements SubscriberInterface
             return;
         }
 
-        if (401 != $event->getResponse()->getStatusCode()) {
+        if (null === $response || 401 != $response->getStatusCode()) {
             return;
         }
 
