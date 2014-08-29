@@ -217,16 +217,12 @@ class Client
         return $response->json()['id'];
     }
 
-    public function updateLibrary($libraryId, $name = null, $description = null)
+    public function updateLibrary($libraryId, $name, $description)
     {
-        $library = [];
-        if (null !== $name) {
-            $library['name'] = $name;
-        }
-
-        if (null !== $description) {
-            $library['description'] = $description;
-        }
+        $library = [
+            'name' => $name,
+            'description' => $description
+        ];
 
         $this->getClient()->put(array('libraries/{id}', array('id' => $libraryId)), ['body' => $library]);
     }
@@ -234,15 +230,10 @@ class Client
     public function updateCollection($collectionId, $name, $description, array $fields)
     {
         $collection = [
+            'name' => $name,
+            'description' => $description,
             'fields' => $fields
         ];
-        if (null !== $name) {
-            $collection['name'] = $name;
-        }
-
-        if (null !== $description) {
-            $collection['description'] = $description;
-        }
 
         $this->getClient()->put(array('collections/{id}', array('id' => $collectionId)), ['body' => $collection]);
     }
