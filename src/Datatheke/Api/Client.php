@@ -185,12 +185,20 @@ class Client
         return $response->json();
     }
 
-    public function createLibrary($name, $description = '')
+    public function createLibrary($name, $description = '', $public = false, $collaborative = false)
     {
         $library = [
             'name' => $name,
             'description' => $description
         ];
+
+        if ($public) {
+            $library['public'] = true;
+        }
+
+        if ($collaborative) {
+            $library['collaborative'] = true;
+        }
 
         $response = $this->getClient()->post('libraries', ['body' => $library]);
 
@@ -217,12 +225,20 @@ class Client
         return $response->json()['id'];
     }
 
-    public function updateLibrary($libraryId, $name, $description)
+    public function updateLibrary($libraryId, $name, $description, $public = false, $collaborative = false)
     {
         $library = [
             'name' => $name,
             'description' => $description
         ];
+
+        if ($public) {
+            $library['public'] = true;
+        }
+
+        if ($collaborative) {
+            $library['collaborative'] = true;
+        }
 
         $this->getClient()->put(array('libraries/{id}', array('id' => $libraryId)), ['body' => $library]);
     }
